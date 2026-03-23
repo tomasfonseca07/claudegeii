@@ -1,0 +1,79 @@
+package pt.ipp.isep.dei.repository;
+
+/**
+ * Inspired on https://refactoring.guru/design-patterns/singleton/java/example
+ *
+ * The Repositories class works as a Singleton. It defines the getInstance method that serves as an alternative
+ * to the constructor and lets client classes access the same instance of this class over and over.
+ */
+public class Repositories {
+    private static Repositories instance;
+    private final OrganizationRepository organizationRepository;
+    private final TaskCategoryRepository taskCategoryRepository;
+    private final AuthenticationRepository authenticationRepository;
+    private final InstitutionRepository institutionRepository;
+    private final FunctionRepository functionRepository;
+    private final DeclarationRepository declarationRepository;
+    private final RegistrationRequestRepository registrationRequestRepository;
+    private final ComplaintRepository complaintRepository;
+
+    /**
+     * The Singleton's constructor should always be private to prevent direct construction calls with the new operator.
+     */
+    private Repositories() {
+        organizationRepository = new OrganizationRepository();
+        taskCategoryRepository = new TaskCategoryRepository();
+        authenticationRepository = new AuthenticationRepository();
+        institutionRepository = new InstitutionRepository();
+        functionRepository = new FunctionRepository();
+        declarationRepository = new DeclarationRepository();
+        registrationRequestRepository = new RegistrationRequestRepository();
+        complaintRepository = new ComplaintRepository();
+    }
+
+    /**
+     * This is the static method that controls the access to the singleton instance.
+     * On the first run, it creates a singleton object and places it into the static attribute.
+     * On subsequent runs, it returns the existing object stored in the static attribute.
+     */
+    public static Repositories getInstance() {
+        if (instance == null) {
+            synchronized (Repositories.class) {
+                instance = new Repositories();
+            }
+        }
+        return instance;
+    }
+
+    public OrganizationRepository getOrganizationRepository() {
+        return organizationRepository;
+    }
+
+    public TaskCategoryRepository getTaskCategoryRepository() {
+        return taskCategoryRepository;
+    }
+
+    public AuthenticationRepository getAuthenticationRepository() {
+        return authenticationRepository;
+    }
+
+    public InstitutionRepository getInstitutionRepository() {
+        return institutionRepository;
+    }
+
+    public FunctionRepository getFunctionRepository() {
+        return functionRepository;
+    }
+
+    public DeclarationRepository getDeclarationRepository() {
+        return declarationRepository;
+    }
+
+    public RegistrationRequestRepository getRegistrationRequestRepository() {
+        return registrationRequestRepository;
+    }
+
+    public ComplaintRepository getComplaintRepository() {
+        return complaintRepository;
+    }
+}
